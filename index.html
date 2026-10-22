@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROCEDURE TEXT BATTLE: SMK Edition</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0B192C',
+                            900: '#1E3E62',
+                        },
+                        electric: {
+                            400: '#38BDF8',
+                            500: '#00D8F6',
+                            600: '#0284C7',
+                        },
+                        accent: {
+                            yellow: '#FFD166',
+                            green: '#06D6A0',
+                            red: '#EF476F',
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles & Animation Effects */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0B192C;
+            color: #FFFFFF;
+            overflow-x: hidden;
+        }
+        .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(30, 62, 98, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .btn-glow {
+            transition: all 0.2s ease;
+            box-shadow: 0 0 15px rgba(0, 216, 246, 0.4);
+        }
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 216, 246, 0.7);
+        }
+        .pulse-timer {
+            animation: pulse-red 1s infinite;
+        }
+        @keyframes pulse-red {
+            0% { transform: scale(1); color: #FFD166; }
+            50% { transform: scale(1.08); color: #EF476F; }
+            100% { transform: scale(1); color: #FFD166; }
+        }
+        .correct-flash {
+            animation: flash-green 0.6s ease;
+        }
+        .wrong-flash {
+            animation: flash-red 0.6s ease;
+        }
+        @keyframes flash-green {
+            0%, 100% { border-color: rgba(255, 255, 255, 0.15); }
+            50% { border-color: #06D6A0; background-color: rgba(6, 214, 160, 0.2); }
+        }
+        @keyframes flash-red {
+            0%, 100% { border-color: rgba(255, 255, 255, 0.15); }
+            50% { border-color: #EF476F; background-color: rgba(239, 71, 111, 0.2); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between bg-navy-800 text-white relative">
+
+    <!-- Top Navigation Bar -->
+    <header class="w-full bg-navy-900 border-b border-gray-700/50 px-6 py-3 flex justify-between items-center z-20 shadow-lg">
+        <div class="flex items-center space-x-3">
+            <div class="bg-electric-500 text-navy-800 font-black p-2 rounded-lg text-xl tracking-wider font-heading">
+                <i class="fa-solid fa-bolt mr-1"></i> PTB
+            </div>
+            <div>
+                <h1 class="text-lg font-bold font-heading leading-tight tracking-wide text-white">PROCEDURE TEXT BATTLE</h1>
+                <p class="text-xs text-electric-400 font-semibold">Race to the Right Answer! | SMK Edition Grade XI</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <button id="btn-how-to-play" onclick="openModal('how-to-play-modal')" class="px-3 py-1.5 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-semibold transition flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-info text-electric-400"></i> <span class="hidden sm:inline">How to Play</span>
+            </button>
+            <button id="btn-teacher-mode" onclick="toggleTeacherMode()" class="px-3 py-1.5 bg-electric-600 hover:bg-electric-500 rounded-lg text-sm font-bold transition flex items-center gap-1.5">
+                <i class="fa-solid fa-chalkboard-user text-accent-yellow"></i> <span>Teacher Mode</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow flex items-center justify-center p-4 md:p-6 relative z-10 w-full max-w-7xl mx-auto">
+
+        <!-- ================= PAGE 1: START / WELCOME SCREEN ================= -->
+        <section id="screen-start" class="w-full max-w-4xl glass-panel rounded-2xl p-6 md:p-10 shadow-2xl text-center flex flex-col items-center">
+            <div class="inline-block px-4 py-1 bg-electric-500/10 border border-electric-500/30 rounded-full text-electric-400 font-semibold text-xs md:text-sm mb-4">
+                <i class="fa-solid fa-graduation-cap mr-1"></i> Interactive English Game for Grade XI SMK
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold font-heading text-white tracking-tight mb-2">
+                PROCEDURE TEXT <span class="text-transparent bg-clip-text bg-gradient-to-r from-electric-500 to-accent-yellow">BATTLE</span>
+            </h1>
+            <p class="text-lg text-gray-300 mb-8 max-w-xl">
+                Test your vocational reading comprehension, sequence skills, and technical procedures knowledge in a fast-paced team battle!
+            </p>
+
+            <!-- Vector SVG Illustration Banner -->
+            <div class="w-full max-w-md h-40 bg-navy-900/80 rounded-xl border border-gray-700/60 p-4 mb-8 flex justify-around items-center relative overflow-hidden">
+                <div class="text-center z-10">
+                    <div class="w-16 h-16 rounded-full bg-electric-500/20 border border-electric-500/40 flex items-center justify-center text-3xl text-electric-500 mb-1 mx-auto">
+                        <i class="fa-solid fa-blender"></i>
+                    </div>
+                    <span class="text-xs text-gray-300 font-medium">Culinary</span>
+                </div>
+                <div class="text-center z-10">
+                    <div class="w-16 h-16 rounded-full bg-accent-yellow/20 border border-accent-yellow/40 flex items-center justify-center text-3xl text-accent-yellow mb-1 mx-auto">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <span class="text-xs text-gray-300 font-medium">IT & Office</span>
+                </div>
+                <div class="text-center z-10">
+                    <div class="w-16 h-16 rounded-full bg-accent-green/20 border border-accent-green/40 flex items-center justify-center text-3xl text-accent-green mb-1 mx-auto">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+                    <span class="text-xs text-gray-300 font-medium">Engineering</span>
+                </div>
+            </div>
+
+            <!-- Team Setup Form -->
+            <div class="w-full max-w-lg bg-navy-900/90 rounded-xl p-5 border border-gray-700/80 mb-8">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-gray-400 mb-4">Setup Team Names</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="text-left">
+                        <label class="block text-xs font-semibold text-electric-400 mb-1">TEAM A NAME</label>
+                        <input type="text" id="input-team-a" value="TEAM ALPHA" class="w-full px-3 py-2 bg-navy-800 border border-gray-600 rounded-lg text-white font-bold focus:outline-none focus:border-electric-500">
+                    </div>
+                    <div class="text-left">
+                        <label class="block text-xs font-semibold text-accent-yellow mb-1">TEAM B NAME</label>
+                        <input type="text" id="input-team-b" value="TEAM BETA" class="w-full px-3 py-2 bg-navy-800 border border-gray-600 rounded-lg text-white font-bold focus:outline-none focus:border-accent-yellow">
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="startGame()" class="w-full max-w-md py-4 bg-gradient-to-r from-electric-500 to-electric-600 hover:from-electric-400 hover:to-electric-500 text-navy-800 font-extrabold text-xl rounded-xl btn-glow transition uppercase tracking-wider font-heading">
+                <i class="fa-solid fa-play mr-2"></i> START GAME
+            </button>
+        </section>
+
+        <!-- ================= PAGE 2: GAMEPLAY SCREEN ================= -->
+        <section id="screen-gameplay" class="w-full hidden flex-col gap-4">
+            
+            <!-- Top Status Dashboard: Scores, Turn, Timer -->
+            <div class="grid grid-cols-12 gap-3 items-center">
+                <!-- Team A Score Card -->
+                <div id="card-team-a" class="col-span-4 md:col-span-3 glass-panel rounded-xl p-3 border-l-4 border-l-electric-500 transition-all">
+                    <div class="text-xs font-bold text-electric-400 uppercase truncate" id="display-team-a-name">TEAM A</div>
+                    <div class="text-2xl md:text-3xl font-black font-heading text-white" id="score-team-a">0 <span class="text-xs text-gray-400 font-normal">pts</span></div>
+                </div>
+
+                <!-- Timer & Round Status -->
+                <div class="col-span-4 md:col-span-6 glass-panel rounded-xl p-2 md:p-3 text-center flex flex-col justify-center items-center relative">
+                    <div class="text-xs text-gray-300 font-semibold uppercase tracking-wider" id="round-indicator">ROUND 1: PICTURE GUESSING</div>
+                    
+                    <!-- Timer Display -->
+                    <div id="timer-display" class="text-2xl md:text-4xl font-extrabold font-heading text-accent-yellow my-0.5">20</div>
+                    
+                    <!-- Active Turn Indicator -->
+                    <div id="turn-banner" class="px-3 py-0.5 rounded-full text-xs font-bold bg-electric-500 text-navy-800 animate-pulse">
+                        Turn: TEAM A
+                    </div>
+                </div>
+
+                <!-- Team B Score Card -->
+                <div id="card-team-b" class="col-span-4 md:col-span-3 glass-panel rounded-xl p-3 border-r-4 border-r-accent-yellow text-right transition-all">
+                    <div class="text-xs font-bold text-accent-yellow uppercase truncate" id="display-team-b-name">TEAM B</div>
+                    <div class="text-2xl md:text-3xl font-black font-heading text-white" id="score-team-b">0 <span class="text-xs text-gray-400 font-normal">pts</span></div>
+                </div>
+            </div>
+
+            <!-- Question Card Area -->
+            <div id="question-card-container" class="glass-panel rounded-2xl p-5 md:p-6 border border-gray-700/60 shadow-xl flex flex-col gap-4">
+                
+                <!-- Question Meta Header -->
+                <div class="flex justify-between items-center border-b border-gray-700/60 pb-3">
+                    <span id="question-number-tag" class="px-3 py-1 bg-navy-900 border border-gray-600 rounded-lg text-xs font-bold text-electric-400">
+                        QUESTION 1 / 15
+                    </span>
+                    <span id="skill-tag" class="text-xs text-gray-300 font-medium italic">
+                        Skill: Purpose Identification
+                    </span>
+                </div>
+
+                <!-- Question Split Content: Visual/Context + Prompt -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-center my-1">
+                    
+                    <!-- Context / SVG Visual Box -->
+                    <div id="visual-container" class="md:col-span-5 bg-navy-900/90 rounded-xl p-4 border border-gray-700 flex flex-col items-center justify-center min-h-[160px] text-center">
+                        <!-- Dynamic Visual (SVG/Illustration text) inserted by JS -->
+                    </div>
+
+                    <!-- Question Text & Instructions -->
+                    <div class="md:col-span-7 flex flex-col justify-center">
+                        <div id="passage-box" class="hidden mb-3 p-3 bg-navy-900/60 rounded-lg border border-gray-700 text-xs md:text-sm text-gray-200 leading-relaxed max-h-36 overflow-y-auto">
+                            <!-- Optional Reading Text -->
+                        </div>
+                        <h2 id="question-text" class="text-base md:text-lg font-bold text-white leading-snug">
+                            What is the main purpose of this procedure?
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- Multiple Choice Answer Grid -->
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
+                    <!-- Buttons generated dynamically -->
+                </div>
+
+                <!-- Feedback / Explanation Panel (Hidden until answered) -->
+                <div id="explanation-box" class="hidden p-4 rounded-xl border flex flex-col gap-2 transition-all">
+                    <div id="explanation-header" class="text-sm font-bold flex items-center gap-2">
+                        <!-- Dynamic Result Title -->
+                    </div>
+                    <p id="explanation-text" class="text-xs md:text-sm text-gray-200">
+                        <!-- Dynamic Explanation Text -->
+                    </p>
+                    <div class="flex justify-end mt-1">
+                        <button id="btn-next-question" onclick="nextQuestion()" class="px-5 py-2 bg-electric-500 hover:bg-electric-400 text-navy-800 font-extrabold text-sm rounded-lg transition font-heading flex items-center gap-2">
+                            <span>NEXT QUESTION</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Control Toolbar -->
+            <div class="flex justify-between items-center text-xs text-gray-400">
+                <span>Progress: <strong id="progress-text" class="text-white">1/15</strong></span>
+                <div class="flex gap-2">
+                    <button onclick="skipQuestion()" class="px-3 py-1 bg-gray-800 hover:bg-gray-700 rounded text-gray-300">Skip Question</button>
+                    <button onclick="confirmRestart()" class="px-3 py-1 bg-gray-800 hover:bg-gray-700 rounded text-gray-300">Restart Game</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 3: END / RESULTS SCREEN ================= -->
+        <section id="screen-result" class="w-full max-w-4xl glass-panel rounded-2xl p-6 md:p-10 shadow-2xl text-center hidden flex-col items-center">
+            <div id="winner-badge" class="px-4 py-1.5 bg-accent-yellow text-navy-800 font-black rounded-full text-sm uppercase tracking-widest mb-3">
+                VICTORY CELEBRATION
+            </div>
+            
+            <h1 id="winner-title" class="text-3xl md:text-5xl font-extrabold font-heading text-white mb-2">
+                TEAM ALPHA WINS!
+            </h1>
+            <p id="winner-subtitle" class="text-gray-300 mb-8 text-sm md:text-base">
+                Outstanding performance in procedure text comprehension!
+            </p>
+
+            <!-- Final Scoreboard Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-2xl mb-8">
+                <!-- Team A Result Card -->
+                <div id="result-card-a" class="bg-navy-900/90 rounded-xl p-5 border-2 border-electric-500 flex flex-col items-center">
+                    <span class="text-electric-400 font-bold text-sm uppercase" id="res-name-a">TEAM ALPHA</span>
+                    <div class="text-4xl font-black font-heading text-white my-2" id="res-score-a">0</div>
+                    <div class="text-xs text-gray-300">Correct Answers: <strong id="res-correct-a" class="text-white">0</strong> / 15</div>
+                </div>
+
+                <!-- Team B Result Card -->
+                <div id="result-card-b" class="bg-navy-900/90 rounded-xl p-5 border-2 border-accent-yellow flex flex-col items-center">
+                    <span class="text-accent-yellow font-bold text-sm uppercase" id="res-name-b">TEAM BETA</span>
+                    <div class="text-4xl font-black font-heading text-white my-2" id="res-score-b">0</div>
+                    <div class="text-xs text-gray-300">Correct Answers: <strong id="res-correct-b" class="text-white">0</strong> / 15</div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 w-full max-w-md">
+                <button onclick="startGame()" class="px-6 py-3 bg-electric-500 hover:bg-electric-400 text-navy-800 font-extrabold rounded-xl transition font-heading flex-1 min-w-[140px]">
+                    <i class="fa-solid fa-rotate-right mr-1"></i> PLAY AGAIN
+                </button>
+                <button onclick="showScreen('screen-start')" class="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded-xl transition font-heading flex-1 min-w-[140px]">
+                    <i class="fa-solid fa-house mr-1"></i> MAIN MENU
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL: HOW TO PLAY -->
+    <div id="how-to-play-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-2xl rounded-2xl p-6 border border-gray-600 text-left max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-gray-700 pb-3 mb-4">
+                <h3 class="text-xl font-bold font-heading text-electric-400"><i class="fa-solid fa-gamepad mr-2"></i> How To Play</h3>
+                <button onclick="closeModal('how-to-play-modal')" class="text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="space-y-4 text-sm text-gray-200">
+                <div class="p-3 bg-navy-900 rounded-lg border border-gray-700">
+                    <h4 class="font-bold text-accent-yellow mb-1"><i class="fa-solid fa-people-group mr-1"></i> 2-Team Turn Based Rules</h4>
+                    <p>Teams take turns answering questions. Each turn has a default timer (15, 20, or 30 seconds).</p>
+                </div>
+
+                <div class="p-3 bg-navy-900 rounded-lg border border-gray-700">
+                    <h4 class="font-bold text-accent-green mb-1"><i class="fa-solid fa-star mr-1"></i> Scoring & Steal Mechanism</h4>
+                    <ul class="list-disc list-inside space-y-1 text-xs">
+                        <li><strong>100 points</strong> for a correct answer on your team's direct turn.</li>
+                        <li><strong>Steal Opportunity:</strong> If a team answers incorrectly, the opposing team gets 1 steal chance with 10 seconds on the timer for <strong>50 points</strong>!</li>
+                        <li><strong>0 points</strong> for wrong answers or running out of time.</li>
+                    </ul>
+                </div>
+
+                <div class="p-3 bg-navy-900 rounded-lg border border-gray-700">
+                    <h4 class="font-bold text-electric-400 mb-1"><i class="fa-solid fa-layer-group mr-1"></i> 5 Gameplay Rounds</h4>
+                    <p class="text-xs">Questions cover Picture Guessing, Order Sequencing, Reading Comprehension, Real-World Scenarios, and Visual Diagrams based on Grade XI SMK Procedure Text topics.</p>
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeModal('how-to-play-modal')" class="px-5 py-2 bg-electric-500 text-navy-800 font-bold rounded-lg hover:bg-electric-400">Got It!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEACHER MODE CONTROL DRAWER (Slide-over panel) -->
+    <div id="teacher-drawer" class="fixed inset-y-0 right-0 w-full max-w-md bg-navy-900 border-l border-gray-700 z-50 transform translate-x-full transition-transform duration-300 p-6 flex flex-col justify-between shadow-2xl overflow-y-auto">
+        <div>
+            <div class="flex justify-between items-center border-b border-gray-700 pb-3 mb-4">
+                <h3 class="text-lg font-bold font-heading text-accent-yellow flex items-center gap-2">
+                    <i class="fa-solid fa-sliders"></i> Teacher Control Panel
+                </h3>
+                <button onclick="toggleTeacherMode()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+
+            <div class="space-y-5 text-xs text-gray-200">
+                <!-- Timer Customization -->
+                <div>
+                    <label class="block font-bold text-gray-300 mb-2">DEFAULT QUESTION TIMER</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button onclick="setTimerSetting(15)" class="timer-opt-btn py-1.5 bg-navy-800 border border-gray-600 rounded font-bold hover:border-electric-500">15 sec</button>
+                        <button onclick="setTimerSetting(20)" class="timer-opt-btn py-1.5 bg-electric-600 border border-electric-400 rounded font-bold">20 sec</button>
+                        <button onclick="setTimerSetting(30)" class="timer-opt-btn py-1.5 bg-navy-800 border border-gray-600 rounded font-bold hover:border-electric-500">30 sec</button>
+                    </div>
+                </div>
+
+                <!-- Teacher Controls -->
+                <div class="space-y-2 pt-2 border-t border-gray-800">
+                    <label class="block font-bold text-gray-300">MANUAL OVERRIDES</label>
+                    <button onclick="teacherResetScores()" class="w-full py-2 bg-gray-800 hover:bg-gray-700 text-red-400 rounded border border-gray-700 font-semibold text-left px-3 flex justify-between items-center">
+                        <span>Reset All Scores</span> <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                    <button onclick="teacherForceNext()" class="w-full py-2 bg-gray-800 hover:bg-gray-700 text-electric-400 rounded border border-gray-700 font-semibold text-left px-3 flex justify-between items-center">
+                        <span>Force Next Question</span> <i class="fa-solid fa-forward"></i>
+                    </button>
+                </div>
+
+                <!-- Answer Key Reference for Teacher -->
+                <div class="pt-2 border-t border-gray-800">
+                    <label class="block font-bold text-gray-300 mb-2">ANSWER KEYS & SKILL MAPPING</label>
+                    <div id="teacher-answer-keys" class="space-y-2 max-h-60 overflow-y-auto pr-1">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-4 border-t border-gray-800">
+            <button onclick="toggleTeacherMode()" class="w-full py-2 bg-gray-800 hover:bg-gray-700 text-white rounded font-bold">Close Panel</button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Complete Question Bank (15 Questions, 5 Rounds)
+        const QUESTION_BANK = [
+            // ROUND 1: PICTURE GUESSING
+            {
+                id: 1,
+                round: "ROUND 1: PICTURE GUESSING",
+                skill: "Purpose Identification",
+                question: "What is the primary purpose of this procedure?",
+                passage: "",
+                visualType: "svg",
+                visualContent: `
+                    <svg class="w-24 h-24" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="20" y="24" width="24" height="32" rx="4" fill="#38BDF8" stroke="#FFFFFF" stroke-width="2"/>
+                        <path d="M26 16H38L40 24H24L26 16Z" fill="#FFD166" stroke="#FFFFFF" stroke-width="2"/>
+                        <circle cx="32" cy="40" r="6" fill="#0B192C"/>
+                        <path d="M32 10V16" stroke="#06D6A0" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                    <span class="text-xs text-gray-300 mt-2 font-medium">[Electric Kitchen Blender]</span>
+                `,
+                options: [
+                    "To wash dirty kitchen utensils",
+                    "To prepare fruit juice or smoothies",
+                    "To repair electrical house appliances",
+                    "To clean the dining table"
+                ],
+                correctIndex: 1,
+                explanation: "The illustration shows an electric blender. Blender manuals provide instructions on how to blend fruits or make smoothies."
+            },
+            {
+                id: 2,
+                round: "ROUND 1: PICTURE GUESSING",
+                skill: "Action Identification",
+                question: "Which action is depicted in this step of the hygiene procedure?",
+                passage: "",
+                visualType: "svg",
+                visualContent: `
+                    <svg class="w-24 h-24" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 36C16 36 22 30 32 30C42 30 48 36 48 36" stroke="#38BDF8" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M24 24C24 24 28 20 32 20C36 20 40 24 40 24" stroke="#06D6A0" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="32" cy="42" r="3" fill="#FFD166"/>
+                        <circle cx="24" cy="45" r="2" fill="#FFD166"/>
+                        <circle cx="40" cy="45" r="2" fill="#FFD166"/>
+                    </svg>
+                    <span class="text-xs text-gray-300 mt-2 font-medium">[Hands & Soap Bubbles]</span>
+                `,
+                options: [
+                    "Drying hands with a clean towel",
+                    "Applying moisturizer to skin",
+                    "Rubbing hands with soap and water",
+                    "Turning off the water tap"
+                ],
+                correctIndex: 2,
+                explanation: "The soap bubbles and overlapping hand gesture represent rubbing hands thoroughly during handwashing."
+            },
+            {
+                id: 3,
+                round: "ROUND 1: PICTURE GUESSING",
+                skill: "Equipment Identification",
+                question: "In an IT workshop procedure, what is the main goal when using this tool?",
+                passage: "",
+                visualType: "svg",
+                visualContent: `
+                    <svg class="w-24 h-24" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="12" y="16" width="40" height="26" rx="3" fill="#1E3E62" stroke="#38BDF8" stroke-width="2"/>
+                        <path d="M28 42L24 52H40L36 42" stroke="#FFFFFF" stroke-width="2"/>
+                        <rect x="20" y="52" width="24" height="4" fill="#FFD166"/>
+                    </svg>
+                    <span class="text-xs text-gray-300 mt-2 font-medium">[Desktop Monitor Screen]</span>
+                `,
+                options: [
+                    "To print physical documents",
+                    "To connect external audio cables",
+                    "To display output from a computer workstation",
+                    "To store user data permanently"
+                ],
+                correctIndex: 2,
+                explanation: "A computer monitor is an output device used to display visual information from a computer."
+            },
+
+            // ROUND 2: PUT THE STEPS IN ORDER
+            {
+                id: 4,
+                round: "ROUND 2: PUT STEPS IN ORDER",
+                skill: "Sequence Analysis",
+                question: "How to Prepare Instant Cup Noodles\n1. Pour boiling water into the cup up to the line.\n2. Open the cup lid halfway and add seasoning.\n3. Close the lid and wait for 3 minutes.\n4. Stir well and serve hot.\nWhat is the correct logical order?",
+                passage: "",
+                visualType: "text",
+                visualContent: `<div class="font-bold text-accent-yellow text-sm">Task: Sequence Ordering</div>`,
+                options: [
+                    "2 – 1 – 3 – 4",
+                    "1 – 2 – 4 – 3",
+                    "3 – 2 – 1 – 4",
+                    "2 – 3 – 1 – 4"
+                ],
+                correctIndex: 0,
+                explanation: "First, open lid and add seasoning (2), then pour boiling water (1), wait 3 minutes (3), and finally stir & serve (4)."
+            },
+            {
+                id: 5,
+                round: "ROUND 2: PUT STEPS IN ORDER",
+                skill: "Sequence Analysis",
+                question: "How to Print a PDF Document\n1. Click the 'Print' button to start printing.\n2. Select your printer and desired page count.\n3. Open the PDF file on your PC.\n4. Press Ctrl + P on your keyboard.\nWhich order is correct?",
+                passage: "",
+                visualType: "text",
+                visualContent: `<div class="font-bold text-electric-400 text-sm">Task: Computer Operation</div>`,
+                options: [
+                    "3 – 1 – 2 – 4",
+                    "3 – 4 – 2 – 1",
+                    "4 – 3 – 2 – 1",
+                    "3 – 2 – 4 – 1"
+                ],
+                correctIndex: 1,
+                explanation: "You must open the file first (3), trigger print command (4), adjust settings (2), and click Print (1)."
+            },
+            {
+                id: 6,
+                round: "ROUND 2: PUT STEPS IN ORDER",
+                skill: "Sequence Analysis",
+                question: "Basic Safety Procedure before Operating Machinery\n1. Inspect equipment for any visible damages.\n2. Wear appropriate PPE (safety helmet and gloves).\n3. Turn on the main electrical switch.\n4. Read the safety checklist.\nWhat is the safest order?",
+                passage: "",
+                visualType: "text",
+                visualContent: `<div class="font-bold text-accent-green text-sm">Task: SMK Safety Protocol</div>`,
+                options: [
+                    "4 – 2 – 1 – 3",
+                    "3 – 2 – 1 – 4",
+                    "2 – 4 – 3 – 1",
+                    "1 – 3 – 2 – 4"
+                ],
+                correctIndex: 0,
+                explanation: "Always read safety guidelines (4), put on protective gear (2), inspect equipment (1), and finally power on (3)."
+            },
+
+            // ROUND 3: READ AND CHOOSE
+            {
+                id: 7,
+                round: "ROUND 3: READ AND CHOOSE",
+                skill: "Specific Information",
+                question: "What should you do immediately after plugging in the electric kettle?",
+                passage: "How to Use an Electric Kettle:\n1. Fill the kettle with water up to the MAX line.\n2. Place the kettle on its power base.\n3. Plug the power cord into a wall outlet.\n4. Press the power switch DOWN to turn it on.\n5. Wait until the switch automatically flips UP when boiled.",
+                visualType: "text",
+                visualContent: `<div class="text-xs text-gray-300 font-mono"><i class="fa-solid fa-file-lines text-electric-400 mr-1"></i> Manual Excerpt</div>`,
+                options: [
+                    "Fill the kettle with cold water",
+                    "Press the power switch down",
+                    "Unplug the power cord",
+                    "Wait for the switch to flip up"
+                ],
+                correctIndex: 1,
+                explanation: "According to step 4, right after plugging in the cord (step 3), you press the power switch down."
+            },
+            {
+                id: 8,
+                round: "ROUND 3: READ AND CHOOSE",
+                skill: "Inference / Vocabulary",
+                question: "Based on the text, why should you NOT submerge the kettle base in water?",
+                passage: "Maintenance Notice:\nAlways unplug the kettle before cleaning. Wipe the outer body with a damp cloth. Never submerge the electrical base in water or any liquid to prevent electric shocks and circuit damage.",
+                visualType: "text",
+                visualContent: `<div class="text-xs text-gray-300 font-mono"><i class="fa-solid fa-triangle-exclamation text-accent-yellow mr-1"></i> Caution Note</div>`,
+                options: [
+                    "It will make the kettle boil water too fast",
+                    "It causes the kettle to change color",
+                    "It may cause electric shock and damage the circuit",
+                    "It makes the water taste like soap"
+                ],
+                correctIndex: 2,
+                explanation: "The text explicitly states that submerging the electrical base can lead to electric shocks and circuit damage."
+            },
+            {
+                id: 9,
+                round: "ROUND 3: READ AND CHOOSE",
+                skill: "Action Verb Focus",
+                question: "Which action verb in the text means 'to insert a plug into an outlet'?",
+                passage: "How to Setup a Projector:\nFirst, place the projector on a flat table. Next, connect the HDMI cable to your laptop. Then, insert the power plug into the wall socket. Finally, press the power button to turn it on.",
+                visualType: "text",
+                visualContent: `<div class="text-xs text-gray-300 font-mono"><i class="fa-solid fa-plug text-accent-green mr-1"></i> Setup Guide</div>`,
+                options: [
+                    "Place",
+                    "Connect",
+                    "Insert",
+                    "Press"
+                ],
+                correctIndex: 2,
+                explanation: "'Insert' means to put something into something else (inserting the plug into the socket)."
+            },
+
+            // ROUND 4: WHAT SHOULD YOU DO?
+            {
+                id: 10,
+                round: "ROUND 4: WHAT SHOULD YOU DO?",
+                skill: "Applied Context",
+                question: "You want to connect your laptop to the school Wi-Fi network. What is your first action?",
+                passage: "",
+                visualType: "svg",
+                visualContent: `
+                    <svg class="w-20 h-20" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 20C24 10 40 10 52 20" stroke="#38BDF8" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M20 28C28 20 36 20 44 28" stroke="#06D6A0" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M28 36C30 33 34 33 36 36" stroke="#FFD166" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="32" cy="46" r="3" fill="#FFFFFF"/>
+                    </svg>
+                    <span class="text-xs text-gray-300 mt-1 font-medium">[Wi-Fi Signal]</span>
+                `,
+                options: [
+                    "Open a web browser and play games",
+                    "Turn on Wi-Fi settings on your laptop",
+                    "Unplug the computer power supply",
+                    "Restart the monitor screen"
+                ],
+                correctIndex: 1,
+                explanation: "To connect to any wireless network, the initial step is opening/enabling Wi-Fi settings."
+            },
+            {
+                id: 11,
+                round: "ROUND 4: WHAT SHOULD YOU DO?",
+                skill: "Troubleshooting",
+                question: "A hotel guest mentions that the air conditioner in room 204 is not cooling. What should the front office staff do first according to standard procedure?",
+                passage: "",
+                visualType: "text",
+                visualContent: `<div class="font-bold text-accent-yellow text-sm"><i class="fa-solid fa-hotel mr-1"></i> Hospitality Scenario</div>`,
+                options: [
+                    "Ignore the complaint and wait until tomorrow",
+                    "Apologize to the guest and report the issue to Engineering",
+                    "Tell the guest to fix the AC by themselves",
+                    "Immediately checkout the guest without asking"
+                ],
+                correctIndex: 1,
+                explanation: "Standard hospitality procedure requires apologizing for inconvenience and logging a service ticket with Engineering."
+            },
+            {
+                id: 12,
+                round: "ROUND 4: WHAT SHOULD YOU DO?",
+                skill: "Workshop Safety",
+                question: "Before performing maintenance on an electric motor in the workshop, what essential safety step must be taken?",
+                passage: "",
+                visualType: "text",
+                visualContent: `<div class="font-bold text-accent-green text-sm"><i class="fa-solid fa-gears mr-1"></i> Workshop Protocol</div>`,
+                options: [
+                    "Disconnect the power source and lock out the switch",
+                    "Paint the motor frame with new color",
+                    "Increase the voltage input to maximum",
+                    "Clean the floor with soapy water"
+                ],
+                correctIndex: 0,
+                explanation: "Lockout/Tagout procedures mandate disconnecting electrical power before servicing active machinery."
+            },
+
+            // ROUND 5: VISUAL CHALLENGE
+            {
+                id: 13,
+                round: "ROUND 5: VISUAL CHALLENGE",
+                skill: "Diagram Flow Interpretation",
+                question: "Look at the flowchart below:\n[ COMPUTER OFF ] ➔ [ CONNECT CABLE ] ➔ [ TURN ON POWER ] ➔ [ LAUNCH APP ]\nWhat must you do directly AFTER connecting the cable?",
+                passage: "",
+                visualType: "text",
+                visualContent: `
+                    <div class="flex items-center justify-center gap-1 text-[10px] sm:text-xs font-mono font-bold text-electric-400">
+                        <span class="p-1 bg-navy-800 border rounded">OFF</span>➔
+                        <span class="p-1 bg-navy-800 border rounded text-accent-yellow">CABLE</span>➔
+                        <span class="p-1 bg-navy-800 border rounded text-accent-green">POWER</span>➔
+                        <span class="p-1 bg-navy-800 border rounded">APP</span>
+                    </div>
+                `,
+                options: [
+                    "Launch the software application",
+                    "Turn on the power supply",
+                    "Unplug the computer cable",
+                    "Shutdown the system"
+                ],
+                correctIndex: 1,
+                explanation: "Following the arrow sequence from 'CONNECT CABLE', the immediate next box is 'TURN ON POWER'."
+            },
+            {
+                id: 14,
+                round: "ROUND 5: VISUAL CHALLENGE",
+                skill: "Icon Identification",
+                question: "Which digital procedure icon represents saving a finished file to disk?",
+                passage: "",
+                visualType: "svg",
+                visualContent: `
+                    <div class="flex gap-4 items-center justify-center">
+                        <div class="text-center"><i class="fa-solid fa-floppy-disk text-2xl text-electric-400"></i><br><span class="text-[10px]">A</span></div>
+                        <div class="text-center"><i class="fa-solid fa-trash text-2xl text-red-400"></i><br><span class="text-[10px]">B</span></div>
+                        <div class="text-center"><i class="fa-solid fa-folder-open text-2xl text-accent-yellow"></i><br><span class="text-[10px]">C</span></div>
+                        <div class="text-center"><i class="fa-solid fa-print text-2xl text-accent-green"></i><br><span class="text-[10px]">D</span></div>
+                    </div>
+                `,
+                options: [
+                    "Icon A (Floppy Disk)",
+                    "Icon B (Trash Can)",
+                    "Icon C (Folder Open)",
+                    "Icon D (Printer)"
+                ],
+                correctIndex: 0,
+                explanation: "The floppy disk icon (Icon A) is the standard universal symbol for saving files."
+            },
+            {
+                id: 15,
+                round: "ROUND 5: VISUAL CHALLENGE",
+                skill: "Comprehensive Procedure Synthesis",
+                question: "Review the complete process: What is the final expected outcome of following a Procedure Text?",
+                passage: "",
+                visualType: "svg",
+                visualContent: `
+                    <svg class="w-20 h-20" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="26" stroke="#06D6A0" stroke-width="4"/>
+                        <path d="M20 32L28 40L44 22" stroke="#06D6A0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="text-xs text-gray-300 mt-1 font-medium">[Goal Completion]</span>
+                `,
+                options: [
+                    "To confuse the user with complex technical terms",
+                    "To successfully achieve the goal or complete the task correctly",
+                    "To list unrelated tools and materials",
+                    "To describe a past historical event"
+                ],
+                correctIndex: 1,
+                explanation: "The social function of any procedure text is to guide the user to achieve a goal accurately and safely."
+            }
+        ];
+
+        // Game State Variables
+        let teamAName = "TEAM ALPHA";
+        let teamBName = "TEAM BETA";
+        let scoreA = 0;
+        let scoreB = 0;
+        let correctCountA = 0;
+        let correctCountB = 0;
+
+        let currentQuestionIndex = 0;
+        let activeTurnTeam = 'A'; // 'A' or 'B'
+        let isStealOpportunity = false;
+        let questionAnswered = false;
+
+        let timerSetting = 20; // Default 20 sec
+        let timeRemaining = 20;
+        let timerInterval = null;
+
+        // Initialize Game & Setup
+        function startGame() {
+            // Read Team Names
+            const nameA = document.getElementById('input-team-a').value.trim();
+            const nameB = document.getElementById('input-team-b').value.trim();
+            if (nameA) teamAName = nameA;
+            if (nameB) teamBName = nameB;
+
+            // Reset Scores & Counters
+            scoreA = 0;
+            scoreB = 0;
+            correctCountA = 0;
+            correctCountB = 0;
+            currentQuestionIndex = 0;
+            activeTurnTeam = 'A';
+            isStealOpportunity = false;
+
+            // Update UI Labels
+            document.getElementById('display-team-a-name').innerText = teamAName;
+            document.getElementById('display-team-b-name').innerText = teamBName;
+            document.getElementById('res-name-a').innerText = teamAName;
+            document.getElementById('res-name-b').innerText = teamBName;
+
+            updateScoreboard();
+            populateTeacherKeys();
+
+            showScreen('screen-gameplay');
+            loadQuestion(currentQuestionIndex);
+        }
+
+        // Navigation Helper
+        function showScreen(screenId) {
+            document.getElementById('screen-start').classList.add('hidden');
+            document.getElementById('screen-gameplay').classList.add('hidden');
+            document.getElementById('screen-result').classList.add('hidden');
+
+            document.getElementById(screenId).classList.remove('hidden');
+            if (screenId === 'screen-gameplay') {
+                document.getElementById(screenId).classList.add('flex');
+            } else if (screenId === 'screen-result' || screenId === 'screen-start') {
+                document.getElementById(screenId).classList.add('flex');
+            }
+        }
+
+        // Load Question into UI
+        function loadQuestion(index) {
+            clearInterval(timerInterval);
+            questionAnswered = false;
+
+            const q = QUESTION_BANK[index];
+
+            // Update Headers & Meta
+            document.getElementById('round-indicator').innerText = q.round;
+            document.getElementById('question-number-tag').innerText = `QUESTION ${index + 1} / ${QUESTION_BANK.length}`;
+            document.getElementById('skill-tag').innerText = `Skill: ${q.skill}`;
+            document.getElementById('progress-text').innerText = `${index + 1}/${QUESTION_BANK.length}`;
+
+            // Update Visual Container
+            const visualBox = document.getElementById('visual-container');
+            visualBox.innerHTML = q.visualContent;
+
+            // Optional Reading Passage
+            const passageBox = document.getElementById('passage-box');
+            if (q.passage) {
+                passageBox.innerText = q.passage;
+                passageBox.classList.remove('hidden');
+            } else {
+                passageBox.classList.add('hidden');
+            }
+
+            // Question Text
+            document.getElementById('question-text').innerText = q.question;
+
+            // Build Options Grid
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            
+            const prefixes = ['A', 'B', 'C', 'D'];
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `option-btn w-full p-3.5 bg-navy-900/90 hover:bg-navy-900 border border-gray-700 hover:border-electric-500 rounded-xl text-left text-xs md:text-sm font-semibold transition flex items-center gap-3 group`;
+                btn.onclick = () => handleAnswerSelect(idx);
+                btn.innerHTML = `
+                    <span class="w-7 h-7 rounded-lg bg-navy-800 border border-gray-600 group-hover:border-electric-500 flex items-center justify-center text-xs font-bold text-electric-400 shrink-0">
+                        ${prefixes[idx]}
+                    </span>
+                    <span class="text-gray-200 group-hover:text-white leading-snug">${opt}</span>
+                `;
+                grid.appendChild(btn);
+            });
+
+            // Hide Explanation Box
+            document.getElementById('explanation-box').classList.add('hidden');
+
+            // Set Turn & Start Timer
+            updateTurnBanner();
+            startTimer(isStealOpportunity ? 10 : timerSetting);
+        }
+
+        function startTimer(seconds) {
+            timeRemaining = seconds;
+            const timerEl = document.getElementById('timer-display');
+            timerEl.innerText = timeRemaining;
+            timerEl.classList.remove('pulse-timer');
+
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                timerEl.innerText = timeRemaining;
+
+                if (timeRemaining <= 5) {
+                    timerEl.classList.add('pulse-timer');
+                }
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeOut();
+                }
+            }, 1000);
+        }
+
+        function updateTurnBanner() {
+            const banner = document.getElementById('turn-banner');
+            const cardA = document.getElementById('card-team-a');
+            const cardB = document.getElementById('card-team-b');
+
+            const currentTeamName = activeTurnTeam === 'A' ? teamAName : teamBName;
+            
+            if (isStealOpportunity) {
+                banner.innerText = `STEAL CHANCE: ${currentTeamName}`;
+                banner.className = "px-3 py-0.5 rounded-full text-xs font-bold bg-accent-yellow text-navy-800 animate-bounce";
+            } else {
+                banner.innerText = `Turn: ${currentTeamName}`;
+                banner.className = activeTurnTeam === 'A' 
+                    ? "px-3 py-0.5 rounded-full text-xs font-bold bg-electric-500 text-navy-800 animate-pulse"
+                    : "px-3 py-0.5 rounded-full text-xs font-bold bg-accent-yellow text-navy-800 animate-pulse";
+            }
+
+            // Highlight Active Card
+            if (activeTurnTeam === 'A') {
+                cardA.classList.add('border-l-8', 'bg-electric-500/10');
+                cardB.classList.remove('border-r-8', 'bg-accent-yellow/10');
+            } else {
+                cardB.classList.add('border-r-8', 'bg-accent-yellow/10');
+                cardA.classList.remove('border-l-8', 'bg-electric-500/10');
+            }
+        }
+
+        function handleAnswerSelect(selectedIndex) {
+            if (questionAnswered) return; // Prevent double click
+            clearInterval(timerInterval);
+
+            const q = QUESTION_BANK[currentQuestionIndex];
+            const isCorrect = selectedIndex === q.correctIndex;
+            const optionBtns = document.querySelectorAll('.option-btn');
+
+            // Disable all buttons
+            optionBtns.forEach(btn => btn.disabled = true);
+
+            if (isCorrect) {
+                questionAnswered = true;
+                // Highlight Correct
+                optionBtns[selectedIndex].classList.add('bg-green-600/40', 'border-accent-green');
+                
+                // Award Points
+                const pts = isStealOpportunity ? 50 : 100;
+                if (activeTurnTeam === 'A') {
+                    scoreA += pts;
+                    correctCountA++;
+                } else {
+                    scoreB += pts;
+                    correctCountB++;
+                }
+
+                updateScoreboard();
+                showExplanation(true, isStealOpportunity ? `Correct Steal! (+50 pts)` : `Correct Answer! (+100 pts)`);
+            } else {
+                // Highlight Wrong
+                optionBtns[selectedIndex].classList.add('bg-red-600/40', 'border-accent-red');
+
+                if (!isStealOpportunity) {
+                    // Trigger Steal Chance for Opposing Team
+                    isStealOpportunity = true;
+                    activeTurnTeam = activeTurnTeam === 'A' ? 'B' : 'A';
+                    
+                    // Show wrong popup briefly then reload for steal
+                    setTimeout(() => {
+                        optionBtns.forEach(btn => btn.disabled = false);
+                        optionBtns[selectedIndex].classList.add('opacity-50'); // Dim wrong choice
+                        updateTurnBanner();
+                        startTimer(10); // 10 second steal timer
+                    }, 1200);
+                } else {
+                    // Steal failed as well
+                    questionAnswered = true;
+                    // Show correct answer highlight
+                    optionBtns[q.correctIndex].classList.add('bg-green-600/40', 'border-accent-green');
+                    showExplanation(false, `Incorrect Steal! No points awarded.`);
+                }
+            }
+        }
+
+        function handleTimeOut() {
+            if (questionAnswered) return;
+            const optionBtns = document.querySelectorAll('.option-btn');
+            
+            if (!isStealOpportunity) {
+                // Pass to steal opportunity
+                isStealOpportunity = true;
+                activeTurnTeam = activeTurnTeam === 'A' ? 'B' : 'A';
+                updateTurnBanner();
+                startTimer(10);
+            } else {
+                // Both timed out
+                questionAnswered = true;
+                const q = QUESTION_BANK[currentQuestionIndex];
+                optionBtns.forEach(btn => btn.disabled = true);
+                optionBtns[q.correctIndex].classList.add('bg-green-600/40', 'border-accent-green');
+                showExplanation(false, `Time's Up! No points awarded.`);
+            }
+        }
+
+        function showExplanation(isSuccess, titleText) {
+            const q = QUESTION_BANK[currentQuestionIndex];
+            const box = document.getElementById('explanation-box');
+            const header = document.getElementById('explanation-header');
+            const text = document.getElementById('explanation-text');
+
+            box.classList.remove('hidden', 'bg-green-900/40', 'border-accent-green', 'bg-red-900/40', 'border-accent-red');
+
+            if (isSuccess) {
+                box.classList.add('bg-green-900/30', 'border-accent-green');
+                header.className = "text-sm font-bold text-accent-green flex items-center gap-2";
+                header.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${titleText}`;
+            } else {
+                box.classList.add('bg-red-900/30', 'border-accent-red');
+                header.className = "text-sm font-bold text-accent-red flex items-center gap-2";
+                header.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> ${titleText}`;
+            }
+
+            text.innerText = q.explanation;
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < QUESTION_BANK.length) {
+                // Alternate starting turn for fairness in subsequent questions
+                activeTurnTeam = (currentQuestionIndex % 2 === 0) ? 'A' : 'B';
+                isStealOpportunity = false;
+                loadQuestion(currentQuestionIndex);
+            } else {
+                endGame();
+            }
+        }
+
+        function skipQuestion() {
+            clearInterval(timerInterval);
+            nextQuestion();
+        }
+
+        function updateScoreboard() {
+            document.getElementById('score-team-a').innerHTML = `${scoreA} <span class="text-xs text-gray-400 font-normal">pts</span>`;
+            document.getElementById('score-team-b').innerHTML = `${scoreB} <span class="text-xs text-gray-400 font-normal">pts</span>`;
+        }
+
+        function endGame() {
+            clearInterval(timerInterval);
+            
+            document.getElementById('res-score-a').innerText = scoreA;
+            document.getElementById('res-score-b').innerText = scoreB;
+            document.getElementById('res-correct-a').innerText = correctCountA;
+            document.getElementById('res-correct-b').innerText = correctCountB;
+
+            const titleEl = document.getElementById('winner-title');
+            const subEl = document.getElementById('winner-subtitle');
+            const badgeEl = document.getElementById('winner-badge');
+
+            if (scoreA > scoreB) {
+                badgeEl.innerText = "VICTORY CELEBRATION";
+                titleEl.innerText = `${teamAName} WINS!`;
+                subEl.innerText = `Great teamwork! High accuracy in English Procedure Texts.`;
+            } else if (scoreB > scoreA) {
+                badgeEl.innerText = "VICTORY CELEBRATION";
+                titleEl.innerText = `${teamBName} WINS!`;
+                subEl.innerText = `Outstanding effort! Champion of Procedure Text Battle.`;
+            } else {
+                badgeEl.innerText = "DRAW MATCH";
+                titleEl.innerText = `IT'S A DRAW!`;
+                subEl.innerText = `Both teams demonstrated equal mastery of Procedure Texts!`;
+            }
+
+            showScreen('screen-result');
+        }
+
+        function confirmRestart() {
+            if (confirm("Are you sure you want to restart the game? Current scores will be reset.")) {
+                startGame();
+            }
+        }
+
+        function toggleTeacherMode() {
+            const drawer = document.getElementById('teacher-drawer');
+            drawer.classList.toggle('translate-x-full');
+        }
+
+        function setTimerSetting(seconds) {
+            timerSetting = seconds;
+            document.querySelectorAll('.timer-opt-btn').forEach(btn => {
+                btn.classList.remove('bg-electric-600', 'border-electric-400');
+                btn.classList.add('bg-navy-800', 'border-gray-600');
+            });
+            event.target.classList.add('bg-electric-600', 'border-electric-400');
+        }
+
+        function teacherResetScores() {
+            scoreA = 0;
+            scoreB = 0;
+            correctCountA = 0;
+            correctCountB = 0;
+            updateScoreboard();
+            alert("Scores have been reset to zero.");
+        }
+
+        function teacherForceNext() {
+            toggleTeacherMode();
+            skipQuestion();
+        }
+
+        function populateTeacherKeys() {
+            const container = document.getElementById('teacher-answer-keys');
+            container.innerHTML = '';
+            
+            const prefixes = ['A', 'B', 'C', 'D'];
+            QUESTION_BANK.forEach((q, idx) => {
+                const item = document.createElement('div');
+                item.className = "p-2 bg-navy-800 rounded border border-gray-700 text-[11px]";
+                item.innerHTML = `
+                    <div class="font-bold text-electric-400">Q${idx + 1}. ${q.round}</div>
+                    <div class="text-gray-300 truncate">${q.question}</div>
+                    <div class="text-accent-yellow font-bold mt-1">Key: ${prefixes[q.correctIndex]} (${q.options[q.correctIndex]})</div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
